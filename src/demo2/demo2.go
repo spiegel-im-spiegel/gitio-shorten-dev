@@ -22,8 +22,8 @@ func main() {
 	//shortening url
 	resp, err := http.PostForm("http://git.io", url.Values{"url": {urlStr}})
 	if err != nil {
-		return
 		fmt.Fprintln(os.Stderr, err)
+		return
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
