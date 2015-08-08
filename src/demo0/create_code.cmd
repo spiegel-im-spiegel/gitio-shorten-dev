@@ -1,0 +1,1 @@
+curl_as_dsl.exe -t go curl "http://git.io" -F "url=https://github.com/spiegel-im-spiegel" > demo0.go
