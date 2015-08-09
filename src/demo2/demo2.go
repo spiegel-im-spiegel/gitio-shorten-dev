@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -11,13 +10,11 @@ import (
 
 func main() {
 	//arguments
-	flag.Parse()
-	argsStr := flag.Args()
-	if len(argsStr) < 1 {
+	if len(os.Args) < 2 {
 		fmt.Fprintln(os.Stderr, os.ErrInvalid)
 		return
 	}
-	urlStr := argsStr[0]
+	urlStr := os.Args[1]
 
 	//shortening url
 	resp, err := http.PostForm("http://git.io", url.Values{"url": {urlStr}})

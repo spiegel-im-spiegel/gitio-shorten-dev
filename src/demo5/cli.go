@@ -55,16 +55,14 @@ func (cli *CLI) Run(args []string) int {
 	}
 
 	// Parse argument
-	url = ""
-	flags.Parse(args[1:])
-	for flags.NArg() > 0 {
-		if len(url) == 0 {
-			url = flags.Args()[0]
-		} else {
-			fmt.Fprintln(cli.errStream, os.ErrInvalid, flags.Args()[0])
-			return ExitCodeError
-		}
-		flags.Parse(flags.Args()[1:])
+	switch flags.NArg() {
+	case 0 :
+		url = ""
+	case 1 :
+		url = flags.Arg(0)
+	default :
+		fmt.Fprintln(cli.errStream, os.ErrInvalid, flags.Arg(1))
+		return ExitCodeError
 	}
 
 	if len(url) == 0 {

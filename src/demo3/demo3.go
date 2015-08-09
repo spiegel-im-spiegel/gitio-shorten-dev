@@ -11,12 +11,11 @@ import (
 func main() {
 	//arguments
 	flag.Parse()
-	argsStr := flag.Args()
-	if len(argsStr) < 1 {
+	if flag.NArg() < 1 {
 		fmt.Fprintln(os.Stderr, os.ErrInvalid)
 		return
 	}
-	urlStr := argsStr[0]
+	urlStr := flag.Arg(0)
 
 	//shortening url
 	shortUrl, err := gitioapi.Encode(&gitioapi.Param{Url: urlStr})
