@@ -1,0 +1,3 @@
+[submodule "src/github.com/spiegel-im-spiegel/gitioapi"]
+	path = src/github.com/spiegel-im-spiegel/gitioapi
+	url = git@github.com:spiegel-im-spiegel/gitioapi.git
