@@ -21,8 +21,8 @@ func TestMain(m *testing.M) {
 	testCases = []testCase{
 		{cmdline: "./demo4 https://github.com/technoweenie", code: ExitCodeOK },
 		{cmdline: "./demo4 -c t https://github.com/technoweenie", code: ExitCodeOK },
-		{cmdline: "./demo4 -c t", code: ExitCodeError },
-		{cmdline: "./demo4", code: ExitCodeError },
+		{cmdline: "./demo4 -c t noturl", code: ExitCodeError },
+		{cmdline: "./demo4  noturl", code: ExitCodeError },
 	}
 
 	//start test
@@ -31,7 +31,6 @@ func TestMain(m *testing.M) {
 	//termination
 	os.Exit(code)
 }
-
 
 func TestRun_versionFlag(t *testing.T) {
 	outStream, errStream := new(bytes.Buffer), new(bytes.Buffer)

@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/spiegel-im-spiegel/gitioapi"
 )
@@ -59,6 +61,18 @@ func (cli *CLI) Run(args []string) int {
 			return ExitCodeError
 		}
 		flags.Parse(flags.Args()[1:])
+	}
+
+	if len(url) == 0 {
+		// Get URL from STDIN
+		scanner := bufio.NewScanner(os.Stdin)
+		if scanner.Scan() {
+			url = strings.Trim(scanner.Text(), " \n\r")
+		}
+		if err := scanner.Err(); err != nil {
+			fmt.Fprintln(cli.errStream, os.ErrInvalid, err)
+			return ExitCodeError
+		}
 	}
 
 	// shortening URL
