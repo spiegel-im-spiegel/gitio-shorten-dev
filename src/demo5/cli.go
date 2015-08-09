@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/spiegel-im-spiegel/gitioapi"
 )
@@ -20,6 +22,10 @@ type CLI struct {
 	// outStream and errStream are the stdout and stderr
 	// to write message from the CLI.
 	outStream, errStream io.Writer
+
+	// inStream is the stdin
+	// to read data from the CLI.
+	inStream io.Reader
 }
 
 // Run invokes the CLI with the given arguments.
@@ -60,6 +66,19 @@ func (cli *CLI) Run(args []string) int {
 		}
 		flags.Parse(flags.Args()[1:])
 	}
+
+	if len(url) == 0 {
+		// Get URL from STDIN
+		scanner := bufio.NewScanner(cli.inStream)
+		if scanner.Scan() {
+			url = strings.Trim(scanner.Text(), " \n\r")
+		}
+		if err := scanner.Err(); err != nil {
+			fmt.Fprintln(cli.errStream, os.ErrInvalid, err)
+			return ExitCodeError
+		}
+	}
+
 	if len(url) == 0 {
 		fmt.Fprintln(cli.errStream, os.ErrInvalid, "No GitHub URL")
 		return ExitCodeError

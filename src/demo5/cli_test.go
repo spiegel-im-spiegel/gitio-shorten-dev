@@ -23,8 +23,6 @@ func TestMain(m *testing.M) {
 		{cmdline: "./demo4 -c t https://github.com/technoweenie", code: ExitCodeOK },
 		{cmdline: "./demo4 -c t noturl", code: ExitCodeError },
 		{cmdline: "./demo4  noturl", code: ExitCodeError },
-		{cmdline: "./demo4 -c t", code: ExitCodeError },
-		{cmdline: "./demo4", code: ExitCodeError },
 	}
 
 	//start test
