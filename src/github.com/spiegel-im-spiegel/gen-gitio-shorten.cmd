@@ -1,0 +1,1 @@
+gcli new -framework=mitchellh_cli -owner=spiegel-im-spiegel -c encode:"Shorten GitHub URL" -c decode:"Decode Git.io URL" -flag=code:String:"Short Code" gitio-shorten
